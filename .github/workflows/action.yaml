@@ -73,16 +73,16 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_ACCESS_SECRET_KEY }}
           aws-region: eu-north-1
-      - name: Create test function
-        run: |
+      - name: Create test function 
+        run: |  
           aws lambda create-function --function-name test-function \  
             --code S3Bucket=my-bucket-2321222ijis,S3Key=${{ github.sha }}.zip \  
-            --handler lambda_function.lambda_handler --runtime python3.13 \  
-            --role arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/my-lambda-role 
-      - name: Wait 30 seconds
-        run: sleep 30
-      - name: Destroy test function
-        if: ${{ always() }}
+            --handler lambda_function.lambda_handler --runtime python3.8 \  
+            --role arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/my-lambda-role  
+      - name: Wait 30 seconds  
+        run: sleep 30  
+      - name: Destroy test function  
+        if: ${{ always() }}  
         run: aws lambda delete-function --function-name test-function
   deploy:
     runs-on: ubuntu-latest
