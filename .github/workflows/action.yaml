@@ -73,15 +73,6 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_ACCESS_SECRET_KEY }}
           aws-region: eu-north-1
-      - name: Check user permission
-        run: |
-          aws iam list-attached-user-policies --user-name github_actions_user
-      - name: Attach policy
-        run: |
-          aws iam attach-role-policy --role-name my-lambda-role \
-            --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
-      - name: Test
-        run: aws iam list-attached-role-policies --role-name my-lambda-role
       - name: Create test function 
         run: |  
           aws lambda create-function --function-name test-function \  
